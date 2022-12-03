@@ -1,5 +1,0 @@
-[03-12-22 22:31:47] Marc V1.0 technopretre 
-[03-12-22 22:31:47] recherche de la fenetre du jeu 
-[03-12-22 22:31:47] Windows activé, Id = 0x10674 
-[03-12-22 22:31:48] game focussed 
-[03-12-22 22:32:00] Bot duration:  

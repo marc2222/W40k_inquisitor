@@ -38,7 +38,31 @@ ySelectionVenteCroix := 106
 xRetourPositionCentraleApresVente := 3109
 yRetourPositionCentraleApresVente := 2005
 
+; --------------------------------------------------------------------------------
+; ouverture des coffres
+; --------------------------------------------------------------------------------
+xSelectionPersonnage := 1653
+ySelectionPersonnage := 2011
 
+xSelectionOngletInventaire := 1457
+ySelectionOngletInventaire := 118
+
+xPositionObjectSelectionne := 1278
+yPositionObjectSelectionne := 381
+xDelta := 25
+yDelta := 40
+
+xPositionDuPremierOnglet := 233
+yPositionDuPremierOnglet := 838
+xDeltaOnglet := 100
+
+xPositionDuPremierObjet := 1067
+yPositionDuPremierObjet := 1786
+xDeltaObjet := 120
+yDeltaObjet := 120
+
+
+,  
 ; --------------------------------------------------------------------------------
 ; mission coeur intrepide
 ; --------------------------------------------------------------------------------

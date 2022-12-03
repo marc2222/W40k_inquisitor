@@ -84,7 +84,7 @@ BattleLoop:
 	Log("game focussed")
 	Sleep 500
 	
-	venteBleusVertsViolets()
+	RechercheCoffrePourOuverture(4)
 	Return
 
 
@@ -106,7 +106,7 @@ BattleLoop:
 				nbBoucleCourantAvantVente :=0
 		}
 		if (nbBoucleCourantAvantRecyclage = nbBoucleAvantRecyclage ){
-			RechercheCoffrePourOuverture()
+			RechercheCoffrePourOuverture(1)
 			recyclage()
 			nbBoucleCourantAvantRecyclage :=0
 		}
@@ -154,173 +154,35 @@ quitterGameCoeurIntrepide(){
 	Send {Enter}	
 }
 
-
-RechercheCoffrePourOuverture(){
+RechercheCoffrePourOuverture(nbOngletAOuvrir){
 	global
-;on commence par le coin en bas a droite
-	
+	Click, %xSelectionPersonnage%, %ySelectionPersonnage% 	
 	Sleep 1000
-	MouseMove, 1653, 2011,5
-	Sleep 100
-	Click, 1653, 2011 
 	
+	Click, %xSelectionOngletInventaire%, %ySelectionOngletInventaire%
 	Sleep 1000
-	MouseMove, 1457, 118,5
-	Sleep 100
-	Click, 1457, 118
-	Sleep 300
+
+	xOnglet := xPositionDuPremierOnglet
+	yOnglet := yPositionDuPremierOnglet
+	loop,%nbOngletAOuvrir%{
+		xPositionObjetCourant := xPositionDuPremierObjet
+		yPositionObjetCourant := yPositionDuPremierObjet
+		Loop,8 {
+			Loop, 8{
+				ouvertureDuCoffre(xPositionObjetCourant,yPositionObjetCourant)
+				Sleep, 200
+				xPositionObjetCourant -= xDeltaObjet
+			}
+			xPositionObjetCourant := xPositionDuPremierObjet
+			yPositionObjetCourant -= yDeltaObjet
+		}
+		xOnglet += xDeltaOnglet
+		Click %xOnglet%,%yOnglet%
+		Sleep, 1000
+	}
 	
-	Log("Ouverture de la ligne 8")
-	ouvertureDuCoffre(1067,1786)
-	Sleep 200
-	ouvertureDuCoffre(948,1786)
-	Sleep 200
-	ouvertureDuCoffre(835,1786)
-	Sleep 200
-	ouvertureDuCoffre(712,1786)
-	Sleep 200
-	ouvertureDuCoffre(588,1786)
-	Sleep 200
-	ouvertureDuCoffre(471,1786)
-	Sleep 200
-	ouvertureDuCoffre(348,1786)
-	Sleep 200
-	ouvertureDuCoffre(229,1786)
-	Sleep 200
-
-	Log("Ouverture de la ligne 7")
-	ouvertureDuCoffre(1067,1665)
-	Sleep 200
-	ouvertureDuCoffre(948,1665)
-	Sleep 200
-	ouvertureDuCoffre(835,1665)
-	Sleep 200
-	ouvertureDuCoffre(712,1665)
-	Sleep 200
-	ouvertureDuCoffre(588,1665)
-	Sleep 200
-	ouvertureDuCoffre(471,1665)
-	Sleep 200
-	ouvertureDuCoffre(348,1665)
-	Sleep 200
-	ouvertureDuCoffre(229,1665)
-	Sleep 200
-
-	Log("Ouverture de la ligne 6")
-	ouvertureDuCoffre(1067,1545)
-	Sleep 200
-	ouvertureDuCoffre(948,1545)
-	Sleep 200
-	ouvertureDuCoffre(835,1545)
-	Sleep 200
-	ouvertureDuCoffre(712,1545)
-	Sleep 200
-	ouvertureDuCoffre(588,1545)
-	Sleep 200
-	ouvertureDuCoffre(471,1545)
-	Sleep 200
-	ouvertureDuCoffre(348,1545)
-	Sleep 200
-	ouvertureDuCoffre(229,1545)
-	Sleep 200
-
-	Log("Ouverture de la ligne 5")
-	ouvertureDuCoffre(1067,1423)
-	Sleep 200
-	ouvertureDuCoffre(948,1423)
-	Sleep 200
-	ouvertureDuCoffre(835,1423)
-	Sleep 200
-	ouvertureDuCoffre(712,1423)
-	Sleep 200
-	ouvertureDuCoffre(588,1423)
-	Sleep 200
-	ouvertureDuCoffre(471,1423)
-	Sleep 200
-	ouvertureDuCoffre(348,1423)
-	Sleep 200
-	ouvertureDuCoffre(229,1423)
-	Sleep 200
-
-	Log("Ouverture de la ligne 4")
-	ouvertureDuCoffre(1067,1312)
-	Sleep 200
-	ouvertureDuCoffre(948,1312)
-	Sleep 200
-	ouvertureDuCoffre(835,1312)
-	Sleep 200
-	ouvertureDuCoffre(712,1312)
-	Sleep 200
-	ouvertureDuCoffre(588,1312)
-	Sleep 200
-	ouvertureDuCoffre(471,1312)
-	Sleep 200
-	ouvertureDuCoffre(348,1312)
-	Sleep 200
-	ouvertureDuCoffre(229,1312)
-	Sleep 200
-
-	Log("Ouverture de la ligne 3")
-	ouvertureDuCoffre(1067,1190)
-	Sleep 200
-	ouvertureDuCoffre(948,1190)
-	Sleep 200
-	ouvertureDuCoffre(835,1190)
-	Sleep 200
-	ouvertureDuCoffre(712,1190)
-	Sleep 200
-	ouvertureDuCoffre(588,1190)
-	Sleep 200
-	ouvertureDuCoffre(471,1190)
-	Sleep 200
-	ouvertureDuCoffre(348,1190)
-	Sleep 200
-	ouvertureDuCoffre(229,1190)
-	Sleep 200
-
-	Log("Ouverture de la ligne 2")
-	ouvertureDuCoffre(1067,1075)
-	Sleep 200
-	ouvertureDuCoffre(948,1075)
-	Sleep 200
-	ouvertureDuCoffre(835,1075)
-	Sleep 200
-	ouvertureDuCoffre(712,1075)
-	Sleep 200
-	ouvertureDuCoffre(588,1075)
-	Sleep 200
-	ouvertureDuCoffre(471,1075)
-	Sleep 200
-	ouvertureDuCoffre(348,1075)
-	Sleep 200
-	ouvertureDuCoffre(229,1075)
-	Sleep 200
-
-	Log("Ouverture de la ligne 1")
-	ouvertureDuCoffre(1067,956)
-	Sleep 200
-	ouvertureDuCoffre(948,956)
-	Sleep 200
-	ouvertureDuCoffre(835,956)
-	Sleep 200
-	ouvertureDuCoffre(712,956)
-	Sleep 200
-	ouvertureDuCoffre(588,956)
-	Sleep 200
-	ouvertureDuCoffre(471,956)
-	Sleep 200
-	ouvertureDuCoffre(348,956)
-	Sleep 200
-	ouvertureDuCoffre(229,956)
-	Sleep 200
-	
-	MouseMove, 3745, 106 ,5
-	Sleep 300
-	Click 3745, 106
-	Sleep 2000 	
-	
-	
-	
+	Click %xSelectionVenteCroix%, %ySelectionVenteCroix%
+	Sleep 2000 		
 	return	
 
 }
@@ -328,81 +190,76 @@ RechercheCoffrePourOuverture(){
 ouvertureDuCoffre(x,y){
 	global
 	Log("selection du coffre " x " " y)
-	MouseMove, x, y,5
+	Click, %x%,%y% 
+	Sleep 200
+	;verification est ce bien un coffre	
+	xPos3 := xPositionObjectSelectionne
+	yPos3 := yPositionObjectSelectionne
+	Log("point milieu" xPos3  ", "yPos3)
+	MouseMove, xPos3, yPos3,5
 	Sleep 100
-	Click, x,y 
-	Sleep 100
-	SetWindowLocation()
-	;verification est ce bien un coffre
-	
-	Log("point milieu")
-	xPos := 1278
-	ypos := 381
-	MouseMove, xPos, ypos,5
-	Sleep 100
-	PixelGetColor, DetectedColour, xPos, ypos, Slow RGB	
-	Log("Position: " xPos ", " yPos " --- Colour: " DetectedColour " recherche : 0x61553D" )
+	PixelGetColor, DetectedColour, xPos3, yPos3, Slow RGB	
+	Log("Position: " xPos3 ", " yPos3 " --- Colour: " DetectedColour " recherche : 0x61553D" )
 	if (DetectedColour != 0x61553D){
-		Log ("mauvaise couleur")
+		Log("mauvaise couleur")
 		return
 	}
 	
-	Log("point gauche")
-	xPos := 1278-25
-	ypos := 381	
-	MouseMove, xPos, ypos,5
+	
+	xPos3 := xPositionObjectSelectionne-xDelta
+	yPos3 := yPositionObjectSelectionne
+	Log("point gauche" xPos3  ", "yPos3)
+	MouseMove, xPos3, yPos3,5
 	Sleep 100
-	PixelGetColor, DetectedColour, xPos, ypos, Slow RGB	
-	Log("Position: " xPos ", " yPos " --- Colour: " DetectedColour " recherche : 0x6D5940" )
-	if (DetectedColour != 0x6D5940){
-		Log ("mauvaise couleur")
+	PixelGetColor, DetectedColour, xPos3, xPos3, Slow RGB	
+	Log("Position: " xPos3 ", " yPos3 " --- Colour: " DetectedColour " recherche : 0x070B09" )
+	if (DetectedColour != 0x070B09){
+		Log("mauvaise couleur")
 		return
 	}
-	Log("point droit")
-	xPos := 1278+25
-	ypos := 381	
-	MouseMove, xPos, ypos,5
+
+	
+	xPos3  := xPositionObjectSelectionne+xDelta
+	yPos3 := yPositionObjectSelectionne	
+	Log("point droit" xPos3  ", "yPos3)
+	MouseMove, xPos3, yPos3,5
 	Sleep 100
-	PixelGetColor, DetectedColour, xPos, ypos, Slow RGB	
-	Log("Position: " xPos ", " yPos " --- Colour: " DetectedColour " recherche : 0x433428" )
-	if (DetectedColour != 0x433428){
-		Log ("mauvaise couleur")
+	PixelGetColor, DetectedColour, xPos3, xPos3, Slow RGB	
+	Log("Position: " xPos3 ", " yPos3 " --- Colour: " DetectedColour " recherche : 0x040807" )
+	if (DetectedColour != 0x040807){
+		Log("mauvaise couleur")
 		return
 	}
 		
-	Log("point haut")
-	xPos := 1278
-	ypos := 381-40	
-	MouseMove, xPos, ypos,5
+	xPos3  := xPositionObjectSelectionne
+	yPos3 := yPositionObjectSelectionne-yDelta	
+	Log("point haut" xPos3  ", "yPos3)
+	MouseMove, xPos3, yPos3,5
 	Sleep 100
-	PixelGetColor, DetectedColour, xPos, ypos, Slow RGB	
-	Log("Position: " xPos ", " yPos " --- Colour: " DetectedColour " recherche : 0x503F31" )
-	if (DetectedColour != 0x503F31){
-		Log ("mauvaise couleur")
+	PixelGetColor, DetectedColour, xPos3, xPos3, Slow RGB
+	Log("Position: " xPos3 ", " yPos3 " --- Colour: " DetectedColour " recherche : 0x090E0B" )
+	if (DetectedColour != 0x090E0B){
+		Log("mauvaise couleur")
 		return
 	}
 
 	Log("point bas")
-	xPos := 1278
-	ypos := 381+40	
-	MouseMove, xPos, ypos,5
+	xPos3  := xPositionObjectSelectionne
+	yPos3 := yPositionObjectSelectionne+yDelta	
+	MouseMove, xPos3, yPos3,5
 	Sleep 100
-	PixelGetColor, DetectedColour, xPos, ypos, Slow RGB	
-	Log("Position: " xPos ", " yPos " --- Colour: " DetectedColour " recherche : 0x0C0300" )
-	if (DetectedColour != 0x0C0300){
-		Log ("mauvaise couleur")
+	PixelGetColor, DetectedColour, xPos3, xPos3, Slow RGB
+	Log("Position: " xPos3 ", " yPos3 " --- Colour: " DetectedColour " recherche : 0x090E0B" )
+	if (DetectedColour != 0x090E0B){
+		Log("mauvaise couleur")
 		return
 	}
 
-	Log ("Ouverture de coffre " x " " y)
-	MouseMove, x, y,5
-	Sleep 100
-	Click Right
+	Log("Ouverture de coffre " x " " y)	
+	Click %x%,%y%,Right
 	Sleep 3000
 	Send {Enter}
-	Sleep 1000
-	
-	
+	Sleep 1000	
 }
 
 venteBleusVertsViolets(){

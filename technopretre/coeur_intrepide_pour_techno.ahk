@@ -1,78 +1,25 @@
 #NoEnv
 #SingleInstance,Prompt
 
-;#Include configuration_techno.ahk
+#Include configuration_techno.ahk
 
-
-; If you feel your clicks are off by a tad bit you can adjust the
-; margins here, for example winHeightOffset -40 works for some.
-winHeightOffset := 0
-winWidthOffset := 0
-
-;mission coeur intrepide
-	xPositionVuegenerale := 2165 
-	yPositionVuegenerale := 2014
-
-	xPositionMissionsSpeciales := 2140 
-	yPositionMissionsSpeciales := 119
-
-	xPositionAscenseur := 1230 
-	yPositionMAscenseur := 1532
-
-	xPositionCoeur := 1230 
-	yPositionCoeur := 1532
-	
-	xPositionContinuer := 3511 
-	yPositionContinuerr := 1823
-
-
-
-
-; Ensure mouse coords are always fetched via screen size 
-; and not relative to the active window
 CoordMode Mouse, Screen
 CoordMode Pixel, Screen
 
-; --------------------------------------------------------------------------------
-; LOST ARK CHAOS BOT - FARMS 1 ROOM AND LEAVES
-; --------------------------------------------------------------------------------
-
-; IN-GAME SETTINGS !! IMPORTANT
-; **Screen**: Windowed Mode,
-; **Resolution**: 1920x1080 (16:9)
-; **HUD Size: 100%**
-; I use 150% windows scaling on a 4k monitor but the above... should work regardless.
-
-
-; Don't change any of these...
-gameWidth := 1920
-gameHeight := 1080
-winWidth := 0
-winHeight := 0
-startTime := 0
-
 SetWindowLocation()
-InBattle := false
-
-gameFound := false
-
-gameName := "Warhammer: Inquisitor - Martyr"
-; --------------------------------------------------------------------------------
-; INITIALIZE KEYS
-; --------------------------------------------------------------------------------
-
 
 ;=============================================================================
 ;===                  definition des touches du bot                        ===
 ;=============================================================================
+;F1 pour Demmarer le bot
 F1::
-	LogReset()
-	Log("erwan vu qu'il corrige tout  v0.0.1 Techno")
 
+	LogReset()
+	Log("Marc V1.0 technopretre")
 	SetTimer, BattleLoop, -100
 	return
 
-
+;F3 pour avoir la position de la souris
 F3::
 	SetWindowLocation()
 
@@ -88,11 +35,11 @@ F3::
 	Log("Position: " xpos ", " ypos " --- Colour: " DetectedColour "(" MouseColour ")")
 	return
 
+;F5 pour avoir la liste des executable et trouver le nom du jeu
 F5::
 	WinGet, windows, list
 
-	Loop, %windows%
-	{
+	Loop, %windows%{
 		id := windows%A_Index%
 		WinGet, process, ProcessName, ahk_id %id%
 		WinGetTitle, title, ahk_id %id%
@@ -107,6 +54,8 @@ F5::
 		MsgBox raté
 	}
 	ExitApp
+
+;ESC pour quitter le BOT
 Escape::
 	Log("Bot duration: " Duration())
 	MsgBox Stopped! Duration: %duration%
@@ -120,38 +69,41 @@ Escape::
 
 BattleLoop:
 	global gameFound
+	
+	nbBoucleCourantAvantVente := 0
+	nbBoucleCourantAvantRecyclage := 0
+
 	startTime := Unix()
 	FocusGame()
-	if(gameFound){
-		Sleep, 1000	
-		ClickCenter()
-		Log("game focussed")
 
-		Sleep 1000	
-
-		; boucle 
-		Loop,
-		{
-			OpenCoeurIntrepide()		
-			parcours()
-			ValidationQuitter()
-			
-			OpenCoeurIntrepide()		
-			parcours()
-			ValidationQuitter()
-			
-			OpenCoeurIntrepide()		
-			parcours()
-			ValidationQuitter()
-
-			;inventaire()
-			vente()
-			;recyclage()
-		}
-	} else {
+	if(Not gameFound){
 		MsgBox 0,,''%gameName%''`nN'a aucune instance
+		ExitApp
 	}
+	Sleep, 500	
+	ClickCenter()
+	Log("game focussed")
+	Sleep 500	
+	
+	Loop, %nbBoucleTotale%{
+		OpenCoeurIntrepide()		
+		parcours()
+		quitterGameCoeurIntrepide()
+		
+		nbBoucleCourantAvantVente += 1
+		nbBoucleCourantAvantRecyclage += 1
 
+		if (nbBoucleCourantAvantVente = nbBoucleAvantVente ){
+				venteBleusVertsViolets()
+				nbBoucleCourantAvantVente :=0
+		}
+		if (nbBoucleCourantAvantRecyclage = nbBoucleAvantRecyclage ){
+			RechercheCoffrePourOuverture()
+			recyclage()
+			nbBoucleCourantAvantRecyclage :=0
+		}
+	}
+	Log("termine")
 	return
 
 ;=============================================================================
@@ -161,35 +113,37 @@ BattleLoop:
 InvoqueAll() {
 	global
 	Log("Changement d'arme")
-	Click, 1877, 1335
+	;positionnement de la souris
+	ClickCenter()
 	Sleep, 700
-	;MouseMove, 1585, 1196 ,5
-	;Sleep 300
+
+	;changmeent d'arme
 	Send {a down}{a up}
 	Sleep, 700
-	;MouseMove, 1689, 967 ,5
-	;Sleep 300
+
+	;invocation de la besiole du q
 	Send {q down}{q up}
 	Sleep, 700
-	;MouseMove, 1890, 917 ,5
-	;Sleep 300
+
+	;invocation de la besiole du s
 	Send {s down}{s up}
 	Sleep, 700
-	;MouseMove, 2128, 995 ,5
-	;Sleep 300
+
+	;invocation de la besiole du f
 	Send {f down}{f up}
 	Sleep, 700
-	;MouseMove, 2216, 1285 ,5
-	;Sleep 300
-	Click, 2216, 1285, Right
+
+	;invocation de la besiole du click droit
+	centerX := Floor(winWidth/2)
+	centerY := Floor(winHeight/2)
+	Click %centerX%, %centerY%, Right
+	;Click, 2216, 1285, Right
 	Sleep, 700
-	;MouseMove, 1585, 1196 ,5
-	;Sleep 300
+
+	;retour a l'arme principale
 	Send {a down}{a up}
 	Sleep,500
 	return
-	
-	
 }
 
 OpenCoeurIntrepide() {
@@ -198,49 +152,32 @@ OpenCoeurIntrepide() {
 
 	Log("Open coeur intrepide...")
 	Log("Ouverture du tableau des mission")	
-	Click, 2165 2014
+	Click, %xPositionVuegenerale% %yPositionVuegenerale%
 	Sleep,200
 	Log("Selection de l'onglet missions pseciales")	
-	Click, 2140 119
+	Click, %xPositionMissionsSpeciales% %yPositionMissionsSpeciales%
 	Sleep,200
 	Log("déplacementde la souris pour scroll")	
-	MouseMove 1260,1537,10
+	MouseMove %xPositionMissionCoeur% , %yPositionMissionCoeur%,10
 	Sleep,200
-	Log("scroll 1")	
-	MouseClick, WheelDown,,, 10
-	Sleep,200
-	Log("scroll 2")	
-	MouseClick, WheelDown,,, 10
-	Sleep,200
-	Log("scroll 3")	
-	MouseClick, WheelDown,,, 10
-	Sleep,200
-	Log("scroll 4")	
-	MouseClick, WheelDown,,, 10
-	Sleep,200
-	Log("scroll 5")	
-	MouseClick, WheelDown,,, 10
-	Sleep,200
-	Log("scroll 6")	
-	MouseClick, WheelDown,,, 10
-	Sleep,200
-	Log("scroll 7")	
-	MouseClick, WheelDown,,, 10
-	Sleep,200
+	Loop, 7 {
+		Log("scroll ")	
+		MouseClick, WheelDown,,, 10
+		Sleep,200
+	}
 	Log("click sur coeur intrepide")	
-	;Click 1260 1611
-	Click 1260 1537
+	Click %xPositionMissionCoeur% %yPositionMissionCoeur%
 	Log("Attente du dialogue")	
 	Sleep,5000
 	Log("clic sur continuer")	
-	Click 3511 1823
+	Click %xPositionContinuer% %yPositionContinuer%
 	Log("Attente lancement de partie")	
 	Sleep,20000
-
 	return
 }
 
 parcours(){
+	global
 	InvoqueAll()
 	PremierDeplacementHaut()
 	PremierDeplacementDroite()
@@ -250,6 +187,7 @@ parcours(){
 }
 
 PremierDeplacementHaut(){
+	global
 	Log("go to start position haut")	
 	nbLoop=0
 	Loop,
@@ -267,6 +205,7 @@ PremierDeplacementHaut(){
 }
 
 PremierDeplacementDroite(){
+	global
 	Log("go to start position Droite")	
 	nbLoop=0
 	Loop,
@@ -284,6 +223,7 @@ PremierDeplacementDroite(){
 }
 
 montee(){
+	global
 	Log("début montée")
 	nbLoop=0
 	Loop,
@@ -301,6 +241,7 @@ montee(){
 	Log("fin montée")
 }
 deplacementGauche(){
+	global
 	Log("début deplacement gauche")
 	nbLoop=0
 	Loop,
@@ -319,7 +260,8 @@ deplacementGauche(){
 	Log("fin gauche")
 
 }
-ValidationQuitter(){
+quitterGameCoeurIntrepide(){
+	global
 	Sleep 9000	
 	Click 3507, 1292
 	Sleep 20000
@@ -327,7 +269,8 @@ ValidationQuitter(){
 	
 }
 
-inventaire(){
+RechercheCoffrePourOuverture(){
+	global
 ;on commence par le coin en bas a droite
 	
 	Sleep 1000
@@ -497,6 +440,7 @@ inventaire(){
 }
 
 ouvertureDuCoffre(x,y){
+	global
 	Log("selection du coffre " x " " y)
 	MouseMove, x, y,5
 	Sleep 100
@@ -575,7 +519,8 @@ ouvertureDuCoffre(x,y){
 	
 }
 
-vente(){
+venteBleusVertsViolets(){
+	global
 	MouseMove, 841, 619 ,5
 	Sleep 100
 	Click 841, 619
@@ -613,6 +558,7 @@ vente(){
 }
 
 recyclage(){
+	global
 	MouseMove, 1832, 1680 ,5
 	Sleep 300
 	Click 1832, 1701

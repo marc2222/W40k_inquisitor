@@ -88,7 +88,25 @@ F3::
 	Log("Position: " xpos ", " ypos " --- Colour: " DetectedColour "(" MouseColour ")")
 	return
 
+F5::
+	WinGet, windows, list
 
+	Loop, %windows%
+	{
+		id := windows%A_Index%
+		WinGet, process, ProcessName, ahk_id %id%
+		WinGetTitle, title, ahk_id %id%
+		FileAppend, %process% %title% %id%`n, *
+		MsgBox process :  %process% `n Titre :  %title% `n
+	}
+
+	if WinExist("Warhammer: Inquisitor - Martyr"){
+			MsgBox trouvé
+		}
+	else{
+		MsgBox raté
+	}
+	ExitApp
 Escape::
 	Log("Bot duration: " Duration())
 	MsgBox Stopped! Duration: %duration%

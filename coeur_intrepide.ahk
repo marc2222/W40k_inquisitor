@@ -84,10 +84,6 @@ BattleLoop:
 	Log("game focussed")
 	Sleep 500
 	
-	RechercheCoffrePourOuverture(4)
-	Return
-
-
 	Loop, %nbBoucleTotale%{
 		OpenCoeurIntrepide()
 
@@ -106,8 +102,10 @@ BattleLoop:
 				nbBoucleCourantAvantVente :=0
 		}
 		if (nbBoucleCourantAvantRecyclage = nbBoucleAvantRecyclage ){
-			RechercheCoffrePourOuverture(1)
-			recyclage()
+			RechercheCoffrePourOuverture(2)
+			venteBleusVertsViolets()
+			if (actionDeRecyclage)
+				recyclage()
 			nbBoucleCourantAvantRecyclage :=0
 		}
 	}
@@ -285,25 +283,21 @@ venteBleusVertsViolets(){
 
 recyclage(){
 	global
-	MouseMove, 1832, 1680 ,5
-	Sleep 300
-	Click 1832, 1701
-	Sleep 1000 
-	
-	MouseMove, 1198, 826 ,5
-	Sleep 300
-	Click 1198, 826
-	Sleep 1000 
+	Click %xSelectionRecycleur%, %ySelectionRecycleur%
+	Sleep 3000	
+
+	Click %xSelectionRecyclageMarron%, %ySelectionRecyclageMarron%
+	Sleep 500 
 	
 	Send {Enter}
 	Sleep 3000
 	
-	MouseMove, 3745, 106 ,5
-	Sleep 300
-	Click 3745, 106
-	Sleep 2000 
-}
+	Click %xSelectionVenteCroix%, %ySelectionVenteCroix%
+	Sleep 1000 
 
+	Click %xRetourPositionCentraleApresRecycleur%, %yRetourPositionCentraleApresRecycleur%
+	Sleep 3000
+}
 
 ;=============================================================================
 ;===                 Fonction de jeu pour Technopretre                     ===

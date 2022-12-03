@@ -6,6 +6,7 @@ gameName := "Warhammer: Inquisitor - Martyr"
 nbBoucleTotale := 50 
 nbBoucleAvantVente := 3 ; 0 veut dire pas de vente
 nbBoucleAvantRecyclage := 0 ; 0 veut dire pas de recyclage
+actionDeRecyclage := False ;True False
 classeJouee := "Technopretre"
 ;classeJouee := "Assassin"
 
@@ -62,7 +63,18 @@ xDeltaObjet := 120
 yDeltaObjet := 120
 
 
-,  
+; --------------------------------------------------------------------------------
+; Recyclage
+; --------------------------------------------------------------------------------
+xSelectionRecycleur := 420
+ySelectionRecycleur := 1835
+
+xSelectionRecyclageMarron := 1206
+ySelectionRecyclageMarron := 827
+
+xRetourPositionCentraleApresRecycleur := 2600
+yRetourPositionCentraleApresRecycleur := 1043
+
 ; --------------------------------------------------------------------------------
 ; mission coeur intrepide
 ; --------------------------------------------------------------------------------

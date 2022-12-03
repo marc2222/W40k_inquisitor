@@ -16,6 +16,14 @@ winWidth := 0
 winHeight := 0
 startTime := 0
 gameFound := false
+
+; --------------------------------------------------------------------------------
+; vente des objets
+; --------------------------------------------------------------------------------
+xSelectionVendeur := 841
+ySelectionVendeur := 619
+
+
 ; --------------------------------------------------------------------------------
 ; mission coeur intrepide
 ; --------------------------------------------------------------------------------
@@ -36,7 +44,7 @@ xPositionContinuer := 3511
 yPositionContinuer := 1823
 
 ; --------------------------------------------------------------------------------
-;  Deplacement vers le haut
+;  Deplacement vers le haut TechnoPretre
 ; --------------------------------------------------------------------------------
 xPositionDeplacementHaut := 1913 
 yPositionDeplacementHaut := 976
@@ -51,7 +59,7 @@ nbDeplacementHautPourPremierDeplacement := 7
 nbDeplacementHautPourDeuxiemeDeplacement := 30
 
 ; --------------------------------------------------------------------------------
-;  Deplacement vers la droite
+;  Deplacement vers la droite TechnoPretre
 ; --------------------------------------------------------------------------------
 xPositionDeplacementDroite := 2224 
 yPositionDeplacementDroite := 1274
@@ -62,7 +70,7 @@ yPositionRelativePourInvocationTourelleDroite := 900
 nbDeplacementDroitePourPremierDeplacement := 9
 
 ; --------------------------------------------------------------------------------
-;  Deplacement vers la gauche
+;  Deplacement vers la gauche TechnoPretre
 ; --------------------------------------------------------------------------------
 xPositionDeplacementGauche := 1519 
 yPositionDeplacementGauche := 1308

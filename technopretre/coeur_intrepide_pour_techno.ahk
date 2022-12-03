@@ -26,13 +26,13 @@ F3::
 	; Output the current mouse coordinates
 	MouseGetPos, MouseX, MouseY
 
-	xpos := MouseX - winWidth
-	ypos := MouseY - winHeight
+	xpos2 := MouseX - winWidth
+	ypos2 := MouseY - winHeight
 
-	DetectedColour := GetPixelColor(xpos, ypos)
+	DetectedColour := GetPixelColor(MouseX, MouseY)
 	PixelGetColor, MouseColour, %MouseX%, %MouseY%, Slow RGB
 
-	Log("Position: " xpos ", " ypos " --- Colour: " DetectedColour "(" MouseColour ")")
+	Log("Position: " MouseX ", " MouseY " --- Colour: " DetectedColour "(" MouseColour ")")
 	return
 
 ;F5 pour avoir la liste des executable et trouver le nom du jeu
@@ -81,19 +81,24 @@ BattleLoop:
 		ExitApp
 	}
 	Sleep, 500	
-	ClickCenter()
+	clickPersonnage()
 	Log("game focussed")
 	Sleep 500
 	
+	clickPersonnage()
+	return
+	venteBleusVertsViolets()
+	Return
+
+
 	Loop, %nbBoucleTotale%{
 		OpenCoeurIntrepide()
 
 		if (classeJouee = "Technopretre")
 			parcours_technopretre()
 		else if (classeJouee = "Assassin")
-			parcours_assassin()
+			parcours_assassin()		
 
-		
 		quitterGameCoeurIntrepide()
 		
 		nbBoucleCourantAvantVente += 1
@@ -405,10 +410,11 @@ ouvertureDuCoffre(x,y){
 
 venteBleusVertsViolets(){
 	global
-	MouseMove, 841, 619 ,5
+	MouseMove, xSelectionVendeur, ySelectionVendeur ,5
 	Sleep 100
-	Click 841, 619
+	Click xSelectionVendeur, ySelectionVendeur
 	Sleep 4000	
+	return
 	
 	MouseMove, 1203, 1065 ,5
 	Sleep 100
@@ -483,7 +489,7 @@ InvoqueAll_technopretre() {
 	global
 	Log("Changement d'arme")
 	;positionnement de la souris
-	ClickCenter()
+	clickPersonnage()
 	Sleep, 700
 
 	;changmeent d'arme
@@ -594,18 +600,13 @@ SetWindowLocation() {
 
 GetPixelColor(x, y) {
 	global
+	SetWindowLocation()	
 
-	SetWindowLocation()
-
-	; negate 10 because of game cursor 
-	width  := x + winWidth
-	height := y + winHeight
-
-	PixelGetColor, DetectedColour, width, height, Slow RGB
+	PixelGetColor, DetectedColour, x, y, Slow RGB
 	return DetectedColour
 }
 
-ClickCenter(){
+clickPersonnage(){
 	global
 	centerX := Floor(winWidth/2)
 	centerY := Floor(winHeight/2)

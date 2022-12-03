@@ -1,0 +1,5 @@
+[03-12-22 18:31:59] Marc V1.0 technopretre 
+[03-12-22 18:31:59] recherche de la fenetre du jeu 
+[03-12-22 18:31:59] Windows activé, Id = 0x4063c 
+[03-12-22 18:32:00] game focussed 
+[03-12-22 18:32:32] Bot duration:  

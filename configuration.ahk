@@ -4,7 +4,7 @@
 
 gameName := "Warhammer: Inquisitor - Martyr"
 nbBoucleTotale := 50 
-nbBoucleAvantVente := 0 ; 0 veut dire pas de vente
+nbBoucleAvantVente := 3 ; 0 veut dire pas de vente
 nbBoucleAvantRecyclage := 0 ; 0 veut dire pas de recyclage
 classeJouee := "Technopretre"
 ;classeJouee := "Assassin"
@@ -22,6 +22,21 @@ gameFound := false
 ; --------------------------------------------------------------------------------
 xSelectionVendeur := 841
 ySelectionVendeur := 619
+
+xSelectionVenteBleu := 1203
+ySelectionVenteBleu := 1065
+		
+xSelectionVenteVert := 1203
+ySelectionVenteVert := 1181
+
+xSelectionVenteViolet := 1203
+ySelectionVenteViolet := 1286
+
+xSelectionVenteCroix := 3745
+ySelectionVenteCroix := 106
+
+xRetourPositionCentraleApresVente := 3109
+yRetourPositionCentraleApresVente := 2005
 
 
 ; --------------------------------------------------------------------------------

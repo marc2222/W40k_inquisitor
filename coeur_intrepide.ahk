@@ -1,7 +1,7 @@
 #NoEnv
 #SingleInstance,Prompt
 
-#Include configuration_techno.ahk
+#Include configuration.ahk
 
 CoordMode Mouse, Screen
 CoordMode Pixel, Screen
@@ -13,7 +13,6 @@ SetWindowLocation()
 ;=============================================================================
 ;F1 pour Demmarer le bot
 F1::
-
 	LogReset()
 	Log("Marc V1.0 technopretre")
 	SetTimer, BattleLoop, -100
@@ -85,8 +84,6 @@ BattleLoop:
 	Log("game focussed")
 	Sleep 500
 	
-	clickPersonnage()
-	return
 	venteBleusVertsViolets()
 	Return
 
@@ -410,41 +407,23 @@ ouvertureDuCoffre(x,y){
 
 venteBleusVertsViolets(){
 	global
-	MouseMove, xSelectionVendeur, ySelectionVendeur ,5
-	Sleep 100
-	Click xSelectionVendeur, ySelectionVendeur
+	Click %xSelectionVendeur%, %ySelectionVendeur%
 	Sleep 4000	
-	return
-	
-	MouseMove, 1203, 1065 ,5
-	Sleep 100
-	Click 1203, 1065
+
+	Click %xSelectionVenteBleu%, %ySelectionVenteBleu%
 	Sleep 2000
 	
-	MouseMove, 1204, 1181 ,5
-	Sleep 100
-	Click 1204, 1181
+	Click %xSelectionVenteVert%, %ySelectionVenteVert%
 	Sleep 2000
 	
-	MouseMove, 1201, 1286 ,5
-	Sleep 100
-	Click 1201, 1286
+	Click %xSelectionVenteViolet%, %ySelectionVenteViolet%
 	Sleep 2000
 	
-	MouseMove, 3745, 106 ,5
-	Sleep 300
-	Click 3745, 106
+	Click %xSelectionVenteCroix%, %ySelectionVenteCroix%
 	Sleep 2000 
-	
-	MouseMove, 1893, 1882 ,5
-	Sleep 300
-	Click 1893, 1882
-	Sleep 1000 
-	
-	MouseMove, 1856, 1490 ,5
-	Sleep 300
-	Click 1856, 1490
-	Sleep 1000 
+
+	Click %xRetourPositionCentraleApresVente%, %yRetourPositionCentraleApresVente%
+	Sleep 4000 
 }
 
 recyclage(){
@@ -607,9 +586,5 @@ GetPixelColor(x, y) {
 }
 
 clickPersonnage(){
-	global
-	centerX := Floor(winWidth/2)
-	centerY := Floor(winHeight/2)
-	Click %centerX%, %centerY%
-	Log("Click center of screen : " centerX "-" centerY)
+	Click 1911, 1303
 }

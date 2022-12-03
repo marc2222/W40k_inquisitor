@@ -6,6 +6,8 @@ gameName := "Warhammer: Inquisitor - Martyr"
 nbBoucleTotale := 50 
 nbBoucleAvantVente := 0 ; 0 veut dire pas de vente
 nbBoucleAvantRecyclage := 0 ; 0 veut dire pas de recyclage
+classeJouee := "Technopretre"
+;classeJouee := "Assassin"
 
 resolutionLargeur := 3840
 resolutionHauteur := 2160
@@ -13,7 +15,7 @@ resolutionHauteur := 2160
 winWidth := 0
 winHeight := 0
 startTime := 0
-
+gameFound := false
 ; --------------------------------------------------------------------------------
 ; mission coeur intrepide
 ; --------------------------------------------------------------------------------
@@ -21,7 +23,6 @@ startTime := 0
 xPositionVuegenerale := 2165 
 yPositionVuegenerale := 2014
 
-;Selection de l'onglet missions pseciales
 xPositionMissionsSpeciales := 2140 
 yPositionMissionsSpeciales := 119
 
@@ -34,7 +35,40 @@ yPositionMissionCoeur := 1537
 xPositionContinuer := 3511 
 yPositionContinuer := 1823
 
-InBattle := false
+; --------------------------------------------------------------------------------
+;  Deplacement vers le haut
+; --------------------------------------------------------------------------------
+xPositionDeplacementHaut := 1913 
+yPositionDeplacementHaut := 976
 
-gameFound := false
+tempsAttenteAvantInvoqueTourelle := 1500
+tempsAttenteAvantRecommencerInvoqueTourelle := 500
+
+xPositionRelativePourInvocationTourelleHaut :=  0 
+yPositionRelativePourInvocationTourelleHaut := 900
+
+nbDeplacementHautPourPremierDeplacement := 7
+nbDeplacementHautPourDeuxiemeDeplacement := 30
+
+; --------------------------------------------------------------------------------
+;  Deplacement vers la droite
+; --------------------------------------------------------------------------------
+xPositionDeplacementDroite := 2224 
+yPositionDeplacementDroite := 1274
+
+xPositionRelativePourInvocationTourelleDroite :=  0 
+yPositionRelativePourInvocationTourelleDroite := 900
+
+nbDeplacementDroitePourPremierDeplacement := 9
+
+; --------------------------------------------------------------------------------
+;  Deplacement vers la gauche
+; --------------------------------------------------------------------------------
+xPositionDeplacementGauche := 1519 
+yPositionDeplacementGauche := 1308
+
+xPositionRelativePourInvocationTourelleGauche :=  900 
+yPositionRelativePourInvocationTourelleGauche := 0
+
+nbDeplacementGauchePourPremierDeplacement := 30
 

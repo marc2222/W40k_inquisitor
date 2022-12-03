@@ -83,11 +83,17 @@ BattleLoop:
 	Sleep, 500	
 	ClickCenter()
 	Log("game focussed")
-	Sleep 500	
+	Sleep 500
 	
 	Loop, %nbBoucleTotale%{
-		OpenCoeurIntrepide()		
-		parcours()
+		OpenCoeurIntrepide()
+
+		if (classeJouee = "Technopretre")
+			parcours_technopretre()
+		else if (classeJouee = "Assassin")
+			parcours_assassin()
+
+		
 		quitterGameCoeurIntrepide()
 		
 		nbBoucleCourantAvantVente += 1
@@ -107,45 +113,8 @@ BattleLoop:
 	return
 
 ;=============================================================================
-;===                 Fonction de jeu                                       ===
+;===                 Fonction de jeu pour tous les perso                   ===
 ;=============================================================================
-
-InvoqueAll() {
-	global
-	Log("Changement d'arme")
-	;positionnement de la souris
-	ClickCenter()
-	Sleep, 700
-
-	;changmeent d'arme
-	Send {a down}{a up}
-	Sleep, 700
-
-	;invocation de la besiole du q
-	Send {q down}{q up}
-	Sleep, 700
-
-	;invocation de la besiole du s
-	Send {s down}{s up}
-	Sleep, 700
-
-	;invocation de la besiole du f
-	Send {f down}{f up}
-	Sleep, 700
-
-	;invocation de la besiole du click droit
-	centerX := Floor(winWidth/2)
-	centerY := Floor(winHeight/2)
-	Click %centerX%, %centerY%, Right
-	;Click, 2216, 1285, Right
-	Sleep, 700
-
-	;retour a l'arme principale
-	Send {a down}{a up}
-	Sleep,500
-	return
-}
-
 OpenCoeurIntrepide() {
 	global
 	SetWindowLocation()
@@ -175,99 +144,14 @@ OpenCoeurIntrepide() {
 	Sleep,20000
 	return
 }
-
-parcours(){
-	global
-	InvoqueAll()
-	PremierDeplacementHaut()
-	PremierDeplacementDroite()
-	montee()
-	deplacementGauche()
-	Sleep 2000
-}
-
-PremierDeplacementHaut(){
-	global
-	Log("go to start position haut")	
-	nbLoop=0
-	Loop,
-	{
-		Click 1913, 976
-		Sleep 1500
-		MouseMove 0,900,10,R
-		Sleep 1500
-		Send {f down}{f up}
-		Sleep 1000
-		nbLoop += 1
-
-	} until nbLoop > 7		
-	return
-}
-
-PremierDeplacementDroite(){
-	global
-	Log("go to start position Droite")	
-	nbLoop=0
-	Loop,
-	{
-		Click 2224, 1274
-		Sleep 1500
-		MouseMove -900,0,10,R
-		Sleep 1500
-		Send {f down}{f up}
-		Sleep 1000
-		nbLoop += 1
-	} until nbLoop > 9	
-	
-	return
-}
-
-montee(){
-	global
-	Log("début montée")
-	nbLoop=0
-	Loop,
-	{
-		Click 1913, 976
-		Sleep 1500
-		MouseMove, 1913, 1613,0
-		Sleep 500		
-		Send {f down}{f up}
-		Sleep,1500
-		nbLoop += 1
-
-	} until nbLoop > 30
-
-	Log("fin montée")
-}
-deplacementGauche(){
-	global
-	Log("début deplacement gauche")
-	nbLoop=0
-	Loop,
-	{
-		Click 1519, 1308
-		Sleep 1500
-		MouseMove 900,0,10,R
-		Sleep 500		
-		Send {f down}{f up}
-		Sleep,1500
-		nbLoop += 1
-
-	} until nbLoop > 30
-	
-	
-	Log("fin gauche")
-
-}
 quitterGameCoeurIntrepide(){
 	global
-	Sleep 9000	
+	Sleep 11000	
 	Click 3507, 1292
 	Sleep 20000
-	Send {Enter}
-	
+	Send {Enter}	
 }
+
 
 RechercheCoffrePourOuverture(){
 	global
@@ -579,11 +463,80 @@ recyclage(){
 }
 
 
+;=============================================================================
+;===                 Fonction de jeu pour Technopretre                     ===
+;=============================================================================
+parcours_technopretre(){
+	global
+	InvoqueAll_technopretre()
+	Log("Deplacement Haut")
+	DeplacementEtInvoque_technopretre(nbDeplacementHautPourPremierDeplacement,xPositionDeplacementHaut,yPositionDeplacementHaut,tempsAttenteAvantInvoqueTourelle,xPositionRelativePourInvocationTourelleHaut,yPositionRelativePourInvocationTourelleHaut,tempsAttenteAvantRecommencerInvoqueTourelle)
+	Log("Deplacement Droite")
+	DeplacementEtInvoque_technopretre(nbDeplacementDroitePourPremierDeplacement,xPositionDeplacementDroite, yPositionDeplacementDroite,tempsAttenteAvantInvoqueTourelle,xPositionRelativePourInvocationTourelleDroite,yPositionRelativePourInvocationTourelleDroite,tempsAttenteAvantRecommencerInvoqueTourelle)
+	Log("Deplacement Haut")
+	DeplacementEtInvoque_technopretre(nbDeplacementHautPourDeuxiemeDeplacement,xPositionDeplacementHaut,yPositionDeplacementHaut,tempsAttenteAvantInvoqueTourelle,xPositionRelativePourInvocationTourelleHaut,yPositionRelativePourInvocationTourelleHaut,tempsAttenteAvantRecommencerInvoqueTourelle)
+	Log("Deplacement Gauche")
+	DeplacementEtInvoque_technopretre(nbDeplacementGauchePourPremierDeplacement,xPositionDeplacementGauche, yPositionDeplacementGauche,tempsAttenteAvantInvoqueTourelle,xPositionRelativePourInvocationTourelleGauche,yPositionRelativePourInvocationTourelleGauche,tempsAttenteAvantRecommencerInvoqueTourelle)
+}
+
+InvoqueAll_technopretre() {
+	global
+	Log("Changement d'arme")
+	;positionnement de la souris
+	ClickCenter()
+	Sleep, 700
+
+	;changmeent d'arme
+	Send {a down}{a up}
+	Sleep, 700
+
+	;invocation de la besiole du q
+	Send {q down}{q up}
+	Sleep, 700
+
+	;invocation de la besiole du s
+	Send {s down}{s up}
+	Sleep, 700
+
+	;invocation de la besiole du f
+	Send {f down}{f up}
+	Sleep, 700
+
+	;invocation de la besiole du click droit
+	centerX := Floor(winWidth/2)
+	centerY := Floor(winHeight/2)
+	Click %centerX%, %centerY%, Right
+
+	Sleep, 700
+
+	;retour a l'arme principale
+	Send {a down}{a up}
+	Sleep,500
+	return
+}
+
+DeplacementEtInvoque_technopretre(nbBoucle,xDep,yDep,t1,xRel,yrel,t2){
+	global
+	Log("deplacement:" nbBoucle "()" xDep "()" yDep "()" t1 "()" xRel "()"  yrel "()" t2)	
+	Loop, %nbBoucle%	{
+		Click %xDep%, %yDep%
+		Sleep %t1%
+		MouseMove %xRel%,%yrel%,10,R
+		Sleep %t1%
+		Send {f down}{f up}
+		Sleep %t2%
+	}	
+}
+
+;=============================================================================
+;===                 Fonction de jeu pour Assassin                        ===
+;=============================================================================
+parcours_assassin(){
+}
 
 ;=============================================================================
 ;===                        Fonction de Log/diverses                       ===
 ;=============================================================================
-
 Log(text) {
 	global
 

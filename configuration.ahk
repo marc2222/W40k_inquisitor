@@ -7,6 +7,7 @@ nbBoucleTotale := 50
 nbBoucleAvantVente := 3 ; 0 veut dire pas de vente
 nbBoucleAvantRecyclage := 0 ; 0 veut dire pas de recyclage
 actionDeRecyclage := False ;True False
+
 classeJouee := "Technopretre"
 ;classeJouee := "Assassin"
 

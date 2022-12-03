@@ -144,6 +144,7 @@ OpenCoeurIntrepide() {
 	Sleep,20000
 	return
 }
+
 quitterGameCoeurIntrepide(){
 	global
 	Sleep 11000	
